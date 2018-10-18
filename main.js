@@ -18,7 +18,8 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
     return;
   }
   // Authorize a client with the loaded credentials, then call the YouTube API.
-  authorize(JSON.parse(content), getChannel, input);
+  const channelNames = input.channelNames;
+  authorize(JSON.parse(content), getChannel, channelNames);
 });
 
 /**
@@ -28,7 +29,7 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback, input) {
+function authorize(credentials, callback, channelNames) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
   var redirectUrl = credentials.installed.redirect_uris[0];
